@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "695896642159",
+    "project_id": "onspot-8d31f",
+    "storage_bucket": "onspot-8d31f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695896642159:android:5e7c544e45fb26c033b39a",
+        "android_client_info": {
+          "package_name": "com.osm.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1lOqrVXNVynnrWYZqYMZNEv7VNlzHhmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
