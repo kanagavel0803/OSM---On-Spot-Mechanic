@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:osm/loginpage.dart';
 import 'package:osm/mech_duty.dart';
 import 'package:osm/user_form.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,197 +18,257 @@ class _SignUpPageState extends State<SignUpPage> {
   final passwordController = TextEditingController();
   String? selectedRole; // For dropdown value
 
-  void wrongEmailMessage(String s) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(s),
-          );
-        });
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   void signUpUser() async {
+    if (selectedRole == null) {
+      // Show an error if no role is selected
+      showToast('Please select a role');
+      return;
+    }
+
     showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
-      Navigator.pop(context);
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+      Navigator.pop(context); // Close the loading dialog
 
-      // Navigate based on role
-      if (selectedRole == 'Mechanic') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MechDutyPage())); 
-      } else {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => VehicleForm()));
+      // Show success message
+      showToast('Sign up successful');
+
+      // Navigate based on the selected role
+      if (selectedRole == 'User') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => VehicleForm()),
+        );
+      } else if (selectedRole == 'Mechanic') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MechDutyPage()),
+        );
       }
     } catch (error) {
-      Navigator.pop(context);
-      wrongEmailMessage(error.toString().split("]").elementAt(1).trim());
+      Navigator.pop(context); // Close the loading dialog
+      showToast(error.toString().split("]").elementAt(1).trim());
     }
+  }
+
+  void signUpWithGoogle() {
+    // Placeholder for Google sign-up process
+    showToast('Sign up with Google Built-In Process');
+    // Implement your Google sign-up logic here
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 80),
-                const SizedBox(height: 40),
-                const Image(image: AssetImage("images/logo_clr.png")),
-                Text(
-                  "Begin Your Journey With Us!!",
-                  style: TextStyle(color: Colors.grey[700], fontSize: 16),
-                ),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextFormField(
-                    controller: usernameController,
-                    decoration: const InputDecoration(
-                      hintText: 'Email Address',
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white,
+      backgroundColor: Colors.white, // White background
+      body: Center(
+        child: Container(
+          margin: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.blueGrey, width: 2.0), // Outer border color
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  Image.asset(
+                    "images/logo_clr.png",
+                    width: MediaQuery.of(context).size.width * 0.5,
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Begin Your Journey With Us!!",
+                    style: GoogleFonts.notoSans(
+                      color: Colors.grey[700],
+                      fontSize: 16,
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextFormField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    obscureText: true,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: DropdownButtonFormField<String>(
-                    value: selectedRole,
-                    decoration: const InputDecoration(
-                      hintText: 'Role',
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'User',
-                        child: Text('User'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Mechanic',
-                        child: Text('Mechanic'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        selectedRole = value;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        child: Text(
-                          "Sign In Instead",
-                          style: TextStyle(color: Colors.grey[600]),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xFFEFFAFD), // Pale blue
+                        hintText: 'Email Address',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(color: Colors.blueGrey), // Border color
                         ),
-                        onTap: () {
-                          Navigator.push(
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: TextFormField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xFFEFFAFD), // Pale blue
+                        hintText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(color: Colors.blueGrey), // Border color
+                        ),
+                      ),
+                      obscureText: true,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: DropdownButtonFormField<String>(
+                      value: selectedRole,
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'User',
+                          child: Text('User'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Mechanic',
+                          child: Text('Mechanic'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedRole = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xFFEFFAFD), // Pale blue
+                        hintText: 'Select Role',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(color: Colors.blueGrey), // Border color
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          child: const Text(
+                            "Log In Instead",
+                            style: TextStyle(color: Color(0xFF4A8BDF)), // Royal blue
+                          ),
+                          onTap: () {
+                            Navigator.push(
                               context,
                               PageRouteBuilder(
                                 pageBuilder: (_, __, ___) => const LoginPage(),
-                                transitionDuration:
-                                    const Duration(milliseconds: 0),
-                              ));
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: signUpUser,
-                  child: const Text("Sign Up"),
-                ),
-                const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
+                                transitionDuration: const Duration(milliseconds: 0),
+                              ),
+                            );
+                          },
                         ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: signUpUser,
+                    child: Text(
+                      "Sign Up",
+                      style: GoogleFonts.notoSans(color: Colors.black),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4A8BDF), // Royal blue
+                      minimumSize: const Size(250, 50), // Reduced-width button
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 10.0),
+                      side: const BorderSide(color: Colors.blueGrey), // Border color
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Text(
                             "Or Continue With",
                             style: TextStyle(color: Colors.grey[700]),
-                          )),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
+                          ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                Center(
-                    child: Container(
-                  width: 350,
-                  height: 70,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey[200]),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 60),
-                      Image.asset(
-                        "images/google_icon.png",
-                        height: 30,
+                  const SizedBox(height: 30),
+                  Center(
+                    child: ElevatedButton.icon(
+                      icon: const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 24,
                       ),
-                      const SizedBox(width: 10),
-                      const Text(
-                        "Sign In With Google",
-                        style: TextStyle(fontSize: 16),
-                      )
-                    ],
+                      label: Text(
+                        'Sign Up With Google',
+                        style: GoogleFonts.notoSans(color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4A8BDF), // Royal blue
+                        minimumSize: const Size(250, 50), // Reduced-width button
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        side: const BorderSide(color: Colors.blueGrey), // Border color
+                      ),
+                      onPressed: signUpWithGoogle,
+                    ),
                   ),
-                )),
-              ],
+                ],
+              ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

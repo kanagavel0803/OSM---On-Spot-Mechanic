@@ -1,10 +1,11 @@
-import 'dart:async'; // Add this import for StreamSubscription
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'user_navbar1.dart';
-import 'user_vehicle.dart';
+// import 'user_vehicle.dart';
+import 'user_problem.dart';
 
 class GoogleMapPage extends StatefulWidget {
   @override
@@ -147,8 +148,8 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => UserVehicle(
-            confirmedLocation: '${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
+          builder: (context) => UserProblem(
+            confirmedLocation: '${_markerPosition!.latitude}, ${_markerPosition!.longitude}', vehicleType: '',
           ),
         ),
       );
@@ -167,7 +168,7 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       drawer: Navbar1(),
       appBar: AppBar(
         title: Text('Google Map'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: Color(0xFF4A8BDF), // Changed color
       ),
       body: Stack(
         children: [
@@ -233,7 +234,7 @@ class GoogleMapPageState extends State<GoogleMapPage> {
               child: FloatingActionButton(
                 onPressed: _navigateToUserVehicle,
                 child: Text('Go'),
-                backgroundColor: Color.fromARGB(255, 31, 157, 161),
+                backgroundColor: Color(0xFF4A8BDF), // Changed color
               ),
             ),
           ),
@@ -250,11 +251,14 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(cityName, style: TextStyle(fontSize: 18.0)),
+          Text(cityName, style: TextStyle(fontSize: 18.0, color: Colors.black)),
           SizedBox(height: 10.0),
           ElevatedButton(
             onPressed: onConfirm,
             child: Text('Confirm'),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Color(0xFF4A8BDF),
+            ),
           ),
         ],
       ),

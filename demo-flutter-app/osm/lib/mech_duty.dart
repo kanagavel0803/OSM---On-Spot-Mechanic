@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'mech_request.dart';
-
-import 'mech_account.dart'; // Make sure you have this file
-import 'mech_profile.dart'; // Make sure you have this file
+import 'mech_account.dart';
+import 'mech_profile.dart';
 
 class MechDutyPage extends StatefulWidget {
   const MechDutyPage({super.key});
@@ -25,7 +24,7 @@ class MechDutyPageState extends State<MechDutyPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mech Duty'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: Color(0xFF4A8BDF),
       ),
       body: Stack(
         children: [
@@ -42,7 +41,7 @@ class MechDutyPageState extends State<MechDutyPage> {
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 31, 157, 161),
+                color: Color(0xFF4A8BDF),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ElevatedButton.icon(
@@ -65,11 +64,11 @@ class MechDutyPageState extends State<MechDutyPage> {
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(10),
-        color: Color.fromARGB(255, 200, 162, 146),
+        color: Color(0xFF4A8BDF),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildBottomIcon(Icons.build, 'Duty'),
+            buildBottomIcon(Icons.build, 'Duty', Colors.white),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -77,7 +76,7 @@ class MechDutyPageState extends State<MechDutyPage> {
                   MaterialPageRoute(builder: (context) => MechAccountPage()),
                 );
               },
-              child: buildBottomIcon(Icons.account_circle, 'Accounts'),
+              child: buildBottomIcon(Icons.account_circle, 'Accounts', Colors.white),
             ),
             GestureDetector(
               onTap: () {
@@ -86,7 +85,7 @@ class MechDutyPageState extends State<MechDutyPage> {
                   MaterialPageRoute(builder: (context) => MechProfilePage()),
                 );
               },
-              child: buildBottomIcon(Icons.person, 'Profile'),
+              child: buildBottomIcon(Icons.person, 'Profile', Colors.white),
             ),
           ],
         ),
@@ -94,15 +93,15 @@ class MechDutyPageState extends State<MechDutyPage> {
     );
   }
 
-  Widget buildBottomIcon(IconData iconData, String text) {
+  Widget buildBottomIcon(IconData iconData, String text, Color color) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(iconData, size: 24),
+        Icon(iconData, size: 24, color: color),
         SizedBox(height: 5),
         Text(
           text,
-          style: TextStyle(fontSize: 12),
+          style: TextStyle(fontSize: 12, color: color),
         ),
       ],
     );

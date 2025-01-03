@@ -12,10 +12,10 @@ class UserProblemDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Problem Details'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: Color(0xFF4A8BDF),
       ),
       body: Container(
-        color: Color.fromARGB(255, 31, 157, 161),
+        color: Color(0xFFE3F2FD),
         child: Column(
           children: [
             Expanded(
@@ -28,17 +28,17 @@ class UserProblemDetails extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                color: Color.fromARGB(255, 31, 157, 161),
-                padding: EdgeInsets.all(6.0),
+                color: Color(0xFFE3F2FD),
+                padding: EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 4.0),
+                    SizedBox(height: 8.0),
                     Text(
                       confirmedLocation,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
-                    SizedBox(height: 4.0),
+                    SizedBox(height: 8.0),
                     Text(
                       'Problem Type',
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF1C1C1C)),
@@ -46,39 +46,43 @@ class UserProblemDetails extends StatelessWidget {
                     SizedBox(height: 20.0),
                     Text(
                       problemType,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
                     SizedBox(height: 16.0),
                     TextField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         labelText: 'Vehicle Name',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.black),
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide(color: Colors.black),
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0),
+                    SizedBox(height: 16.0),
                     TextField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         labelText: 'Vehicle Number',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.black),
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: BorderSide(color: Colors.black),
                         ),
                       ),
                     ),
-                    SizedBox(height: 22.0),
+                    SizedBox(height: 24.0),
                     ElevatedButton(
                       onPressed: () {
                         _sendRequest(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 238, 240, 240),
+                        backgroundColor: Color(0xFF4A8BDF),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -89,7 +93,7 @@ class UserProblemDetails extends StatelessWidget {
                           'Send Request',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                       ),

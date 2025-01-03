@@ -13,10 +13,10 @@ class UserProblem extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Problem'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: Color(0xFF4A8BDF),
       ),
       body: Container(
-        color: Color.fromARGB(255, 31, 157, 161),
+        color: Color(0xFFE3F2FD),
         child: Column(
           children: [
             Expanded(
@@ -29,20 +29,20 @@ class UserProblem extends StatelessWidget {
                 children: [
                   Text(
                     vehicleType,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF4A8BDF)),
                   ),
                   SizedBox(height: 4.0),
                   Text(
                     confirmedLocation,
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16, color: Color(0xFF4A8BDF)),
                   ),
-                  SizedBox(height: 6.0),
+                  SizedBox(height: 16.0),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 31, 157, 161),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    padding: EdgeInsets.all(6.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -51,10 +51,10 @@ class UserProblem extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Color(0xFF4A8BDF),
                           ),
                         ),
-                        SizedBox(height: 12.0),
+                        SizedBox(height: 16.0),
                         buildProblemButton(context, 'Puncture', Icons.car_repair),
                         SizedBox(height: 12.0),
                         buildProblemButton(context, 'Vehicle starting problem', Icons.warning),
@@ -77,11 +77,12 @@ class UserProblem extends StatelessWidget {
   Widget buildProblemButton(BuildContext context, String problemType, IconData icon) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        foregroundColor: Colors.white,
+        backgroundColor: Color(0xFF4A8BDF),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       ),
       onPressed: () {
         _navigateToUserProblemDetails(context, problemType);
@@ -91,7 +92,7 @@ class UserProblem extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Color.fromARGB(255, 31, 157, 161),
+            color: Colors.white,
           ),
           Text(problemType),
           SizedBox(width: 32.0),
