@@ -28,12 +28,12 @@ class _MechRequestPageState extends State<MechRequestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('New Ride Request'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: const Color(0xFF4A8BDF),
       ),
       body: Column(
         children: [
           Expanded(
-            flex: 2, // Adjust flex value to allocate more space for the map
+            flex: 2,
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
@@ -49,13 +49,13 @@ class _MechRequestPageState extends State<MechRequestPage> {
             ),
           ),
           Expanded(
-            flex: 3, // Adjust flex value to allocate space for the content
+            flex: 3,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 padding: EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 31, 157, 161),
+                  color: Color.fromARGB(255, 220, 239, 245),
                   borderRadius: BorderRadius.circular(12.0),
                   boxShadow: [
                     BoxShadow(
@@ -70,7 +70,7 @@ class _MechRequestPageState extends State<MechRequestPage> {
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundColor: Color.fromRGBO(154, 157, 160, 1),
+                      backgroundColor: const Color(0xFF4A8BDF),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -78,6 +78,7 @@ class _MechRequestPageState extends State<MechRequestPage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 8),
@@ -95,7 +96,7 @@ class _MechRequestPageState extends State<MechRequestPage> {
                           SizedBox(width: 8),
                           Text(
                             'Dharmapuri',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ],
                       ),
@@ -106,11 +107,11 @@ class _MechRequestPageState extends State<MechRequestPage> {
                       children: [
                         Text(
                           'Problem:',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                         Text(
                           'Puncture',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
                     ),
@@ -120,24 +121,22 @@ class _MechRequestPageState extends State<MechRequestPage> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                             Navigator.push(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => UserAcceptPage()),
                             );
-                            // Handle accept action
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 200, 162, 146),
+                            backgroundColor: const Color(0xFF4A8BDF),
+                            foregroundColor: Colors.white,
                           ),
                           child: Text('Accept'),
                         ),
                         ElevatedButton(
-                          onPressed: () {
-          
-                            // Handle reject action
-                          },
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 200, 162, 146),
+                            backgroundColor: const Color(0xFF4A8BDF),
+                            foregroundColor: Colors.white,
                           ),
                           child: Text('Reject'),
                         ),

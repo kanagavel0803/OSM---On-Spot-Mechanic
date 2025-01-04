@@ -81,144 +81,66 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void signInWithGoogle() {
-    // Placeholder for Google sign-up process
     showToast('Sign up with Google Built-In Process');
-    // Implement your Google sign-up logic here
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(  // Make the body scrollable
-        child: Center(
-          child: Container(
-            margin: const EdgeInsets.all(16.0),
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.blueGrey, width: 2.0), // Outer border color
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(height: 40), // Reduced space above logo
-                Image.asset(
-                  "images/logo_clr.png",
-                  width: MediaQuery.of(context).size.width * 0.5,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: Center(
+              child: Container(
+                width: screenWidth * 0.9, // Make it responsive
+                margin: EdgeInsets.symmetric(vertical: screenHeight * 0.05),
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05, vertical: screenHeight * 0.03),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.blueGrey, width: 2.0),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextFormField(
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFEFFAFD),
-                      hintText: 'Email Address',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(color: Colors.blueGrey), // Border color
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight * 0.03),
+                    Image.asset(
+                      "images/logo_clr.png",
+                      width: screenWidth * 0.5,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFEFFAFD),
-                      hintText: 'Password',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(color: Colors.blueGrey), // Border color
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
+                    SizedBox(height: screenHeight * 0.03),
+                    TextFormField(
+                      controller: usernameController,
+                      decoration: inputDecoration('Email Address'),
                     ),
-                    obscureText: true,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: DropdownButtonFormField<String>(
-                    value: selectedRole,
-                    items: [
-                      DropdownMenuItem(
-                        value: 'user',
-                        child: Text('User'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'mechanic',
-                        child: Text('Mechanic'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        selectedRole = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFEFFAFD),
-                      hintText: 'Select Role',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: const BorderSide(color: Colors.blueGrey), // Border color
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Colors.red, width: 2.0),
-                      ),
+                    SizedBox(height: screenHeight * 0.015),
+                    TextFormField(
+                      controller: passwordController,
+                      decoration: inputDecoration('Password'),
+                      obscureText: true,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(  // Wrap the SignUp text inside a Flexible widget
-                        child: GestureDetector(
+                    SizedBox(height: screenHeight * 0.015),
+                    DropdownButtonFormField<String>(
+                      value: selectedRole,
+                      items: [
+                        DropdownMenuItem(value: 'user', child: Text('User')),
+                        DropdownMenuItem(value: 'mechanic', child: Text('Mechanic')),
+                      ],
+                      onChanged: (value) => setState(() => selectedRole = value),
+                      decoration: inputDecoration('Select Role'),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
                           child: Text(
                             "SignUp Instead",
                             style: TextStyle(color: const Color(0xFF4A8BDF)),
-                            overflow: TextOverflow.ellipsis, // Ensure that it doesn't overflow
                           ),
                           onTap: () {
                             Navigator.push(
@@ -230,87 +152,81 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           },
                         ),
-                      ),
-                      Flexible(  // Wrap the Forgot Password text inside a Flexible widget
-                        child: Text(
+                        Text(
                           "Forgot Password?",
                           style: TextStyle(color: Colors.grey[600]),
-                          overflow: TextOverflow.ellipsis, // Ensure that it doesn't overflow
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: signUserIn,
-                  child: Text(
-                    "Sign In",
-                    style: GoogleFonts.notoSans(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4A8BDF),
-                    minimumSize: const Size(250, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      ],
                     ),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
+                    SizedBox(height: screenHeight * 0.02),
+                    ElevatedButton(
+                      onPressed: signUserIn,
+                      child: Text(
+                        "Sign In",
+                        style: GoogleFonts.notoSans(color: Colors.black),
+                      ),
+                      style: buttonStyle(),
+                    ),
+                    SizedBox(height: screenHeight * 0.05),
+                    Row(
+                      children: [
+                        Expanded(child: Divider(thickness: 0.5, color: Colors.grey[400])),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text("Or Continue With",
+                              style: TextStyle(color: Color(0xFF9E9E9E))),
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          "Or Continue With",
-                          style: TextStyle(color: Color(0xFF9E9E9E)),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
+                        Expanded(child: Divider(thickness: 0.5, color: Colors.grey[400])),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    ElevatedButton.icon(
+                      icon: const FaIcon(FontAwesomeIcons.google, color: Colors.white, size: 24),
+                      label: Text('Sign In With Google', style: GoogleFonts.notoSans(color: Colors.black)),
+                      style: buttonStyle(),
+                      onPressed: signInWithGoogle,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                  ],
                 ),
-                const SizedBox(height: 30),
-                Center(
-                  child: ElevatedButton.icon(
-                    icon: const FaIcon(
-                      FontAwesomeIcons.google,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                    label: Text(
-                      'Sign In With Google',
-                      style: GoogleFonts.notoSans(color: Colors.black),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A8BDF), // Royal blue
-                      minimumSize: const Size(250, 50), // Reduced-width button
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      side: const BorderSide(color: Colors.blueGrey), // Border color
-                    ),
-                    onPressed: signInWithGoogle,
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
+      ),
+    );
+  }
+
+  InputDecoration inputDecoration(String hintText) {
+    return InputDecoration(
+      filled: true,
+      fillColor: const Color(0xFFEFFAFD),
+      hintText: hintText,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: Colors.blueGrey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: Colors.blue, width: 2.0),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: Colors.red, width: 2.0),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: Colors.red, width: 2.0),
+      ),
+    );
+  }
+
+  ButtonStyle buttonStyle() {
+    return ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF4A8BDF),
+      minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
       ),
     );
   }

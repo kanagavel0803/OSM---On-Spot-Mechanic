@@ -37,14 +37,14 @@ class SplashScreen extends StatelessWidget {
           splashIconSize: 300.0,
           duration: 3000,
           nextScreen: LoginPage(),  
-          backgroundColor: Color.fromARGB(255, 31, 157, 161),
+          backgroundColor: Color.fromARGB(255, 220, 239, 245),
           splashTransition: SplashTransition.scaleTransition,
         ),
         Positioned.fill(
           child: Align(
-            alignment: Alignment(0.0, 0.6),
+            alignment: Alignment(0.0, 0.7),
             child: LoadingAnimationWidget.staggeredDotsWave(
-              color: Colors.white,
+              color: const Color(0xFF4A8BDF),
               size: 100,
             ),
           ),

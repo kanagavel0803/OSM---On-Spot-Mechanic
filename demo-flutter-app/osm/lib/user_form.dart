@@ -1,4 +1,3 @@
-// VehicleForm.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -110,7 +109,7 @@ class _VehicleFormState extends State<VehicleForm> {
               },
             ),
           ],
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 199, 213, 233),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -127,7 +126,7 @@ class _VehicleFormState extends State<VehicleForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Vehicle Form', style: GoogleFonts.lato(fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xFF4A8BDF),
+ backgroundColor: Color(0xFF4A8BDF),
         elevation: 0,
       ),
       body: Container(
@@ -140,121 +139,135 @@ class _VehicleFormState extends State<VehicleForm> {
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Welcome back, User!',
-                  style: GoogleFonts.lato(
-                    fontSize: isLargeScreen ? 35.0 : 32.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 30, 58, 61),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Welcome back, User!',
+                style: GoogleFonts.lato(
+                  fontSize: isLargeScreen ? 35.0 : 32.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 30, 58, 61),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'Enter your vehicle details',
+                style: GoogleFonts.lato(
+                  fontSize: isLargeScreen ? 25.0 : 22.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF4A8BDF),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Card(
+                color: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(14.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildTextField(
+                          controller: usernameController,
+                          labelText: 'User  Name',
+                          icon: Icons.person,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a username';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 14.0),
+                        _buildTextField(
+                          controller: vehicleRegController,
+                          labelText: 'Vehicle Registration Number',
+                          icon: Icons.confirmation_number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a vehicle registration number';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 14.0),
+                        _buildTextField(
+                          controller: vehicleModelController,
+                          labelText: 'Vehicle Model',
+                          icon: Icons.directions_car,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a vehicle model';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 14.0),
+                        _buildDropdownField(
+                          labelText: 'Vehicle Type',
+                          value: selectedVehicleType,
+                          items: ['Car', 'Bike', 'Truck', 'Bus'],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedVehicleType = value;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select a vehicle type';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 14.0),
+                        _buildDropdownField(
+                          labelText: 'Transmission Type',
+                          value: selectedTransmissionType,
+                          items: ['Manual', 'Automatic', 'Electric'],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedTransmissionType = value;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select a transmission type';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 14.0),
+                        _buildTextField(
+                          controller: vehicleColorController,
+                          labelText: 'Vehicle Color',
+                          icon: Icons.color_lens,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a vehicle color';
+                            }
+                            return null;
+                          },
+                        ),
+                        if (vehicleColorController.text.isNotEmpty)
+                          _buildColorSuggestions(),
+                        SizedBox(height: 20.0),
+                        isLoading ? Center(child: CircularProgressIndicator()) : _buildSubmitButton(),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Enter your vehicle details',
-                  style: GoogleFonts.lato(
-                    fontSize: isLargeScreen ? 25.0 : 22.0,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4A8BDF),
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                _buildTextField(
-                  controller: usernameController,
-                  labelText: 'User Name',
-                  icon: Icons.person,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a username';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                _buildTextField(
-                  controller: vehicleRegController,
-                  labelText: 'Vehicle Registration Number',
-                  icon: Icons.confirmation_number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a vehicle registration number';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                _buildTextField(
-                  controller: vehicleModelController,
-                  labelText: 'Vehicle Model',
-                  icon: Icons.directions_car,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a vehicle model';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                _buildDropdownField(
-                  labelText: 'Vehicle Type',
-                  value: selectedVehicleType,
-                  items: ['Car', 'Bike', 'Truck', 'Bus'],
-                  onChanged: (value) {
-                    setState(() {
-                      selectedVehicleType = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select a vehicle type';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                _buildDropdownField(
-                  labelText: 'Transmission Type',
-                  value: selectedTransmissionType,
-                  items: ['Manual', 'Automatic', 'Electric'],
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTransmissionType = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select a transmission type';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                _buildTextField(
-                  controller: vehicleColorController,
-                  labelText: 'Vehicle Color',
-                  icon: Icons.color_lens,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a vehicle color';
-                    }
-                    return null;
-                  },
-                ),
-                if (vehicleColorController.text.isNotEmpty)
-                  _buildColorSuggestions(),
-                SizedBox(height: 20.0),
-                isLoading ? Center(child: CircularProgressIndicator()) : _buildSubmitButton(),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
-
   }
 
   Widget _buildTextField({
@@ -272,12 +285,12 @@ class _VehicleFormState extends State<VehicleForm> {
         fillColor: Colors.white,
         prefixIcon: Icon(icon, color: Color(0xFF4A8BDF)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           borderSide: const BorderSide(color: Colors.blueGrey),
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           borderSide: const BorderSide(color: Colors.blueGrey, width: 2.5),
         ),
       ),
@@ -300,12 +313,12 @@ class _VehicleFormState extends State<VehicleForm> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           borderSide: const BorderSide(color: Colors.blueGrey),
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           borderSide: const BorderSide(color: Colors.blueGrey, width: 2.5),
         ),
       ),
@@ -347,15 +360,15 @@ class _VehicleFormState extends State<VehicleForm> {
         onPressed: _submitForm,
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFF4A8BDF),
-          padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 22.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 18.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(22.0),
           ),
         ),
         child: Text(
           'Submit',
           style: GoogleFonts.lato(
-            fontSize: 25.0,
+            fontSize: 20.0,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

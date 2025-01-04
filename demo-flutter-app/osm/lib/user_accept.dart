@@ -18,8 +18,8 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
-        title: Text('Order Taken'),
+        backgroundColor: const Color(0xFF4A8BDF),
+        title: Text('Order Taken', style: TextStyle(color: Colors.white)),
       ),
       body: Column(
         children: [
@@ -42,7 +42,7 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
           Expanded(
             flex: 3,
             child: Container(
-              color: Color.fromARGB(255, 31, 157, 161),
+              color: const Color(0xFF4A8BDF),
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [

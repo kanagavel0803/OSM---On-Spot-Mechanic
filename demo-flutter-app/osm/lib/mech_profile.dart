@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'mech_duty.dart';
-import 'mech_account.dart';
 
 class MechProfilePage extends StatefulWidget {
   @override
@@ -13,15 +11,27 @@ class _MechProfilePageState extends State<MechProfilePage> {
   final TextEditingController servicesController = TextEditingController();
   final TextEditingController workingDaysController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  
+  final TextEditingController noOfWorkersController = TextEditingController();
+
   bool isEditable = false;
+
+  void saveProfileData() {
+    String mechanicName = mechanicNameController.text;
+    String shopName = shopNameController.text;
+    String services = servicesController.text;
+    String workingDays = workingDaysController.text;
+    String phoneNumber = phoneNumberController.text;
+    String noOfWorkers = noOfWorkersController.text;
+
+    print("Saving data: $mechanicName, $shopName, $services, $workingDays, $phoneNumber, $noOfWorkers");
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Mech Profile'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        backgroundColor: const Color(0xFF4A8BDF),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -29,120 +39,58 @@ class _MechProfilePageState extends State<MechProfilePage> {
           },
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 31, 157, 161),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey,
-                child: Icon(Icons.person, size: 50, color: Colors.white),
-              ),
-              SizedBox(height: 30),
-              Stack(
-                children: [
-                  buildTextField('Mechanic Name:', mechanicNameController),
-                  Positioned(
-                    right: 0,
-                    top: -10,
-                    child: IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        setState(() {
-                          isEditable = !isEditable;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              buildTextField('Shop Name:', shopNameController),
-              SizedBox(height: 16),
-              buildTextField('Services available:', servicesController),
-              SizedBox(height: 16),
-              buildTextField('Working days:', workingDaysController),
-              SizedBox(height: 16),
-              buildTextField('Phone Number:', phoneNumberController),
-              SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.grey.shade300,
+                    child: Icon(Icons.person, size: 50, color: Colors.white),
+                  ),
+                  Spacer(),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 200, 162, 146),
+                      backgroundColor: const Color(0xFF4A8BDF),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     onPressed: () {
-                      // Handle save action
                       setState(() {
-                        isEditable = false;
+                        if (isEditable) {
+                          saveProfileData();
+                        }
+                        isEditable = !isEditable;
                       });
                     },
                     child: Text(
-                      'Save',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 200, 162, 146),
-                    ),
-                    onPressed: () {
-                      // Handle logout action
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.logout, size: 16, color: Colors.black),
-                        SizedBox(width: 5),
-                        Text(
-                          'Logout',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
+                      isEditable ? 'Save' : 'Edit',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 ],
               ),
+              SizedBox(height: 30),
+              buildTextField('Mechanic Name', mechanicNameController),
+              SizedBox(height: 16),
+              buildTextField('Shop Name', shopNameController),
+              SizedBox(height: 16),
+              buildTextField('Services Available', servicesController),
+              SizedBox(height: 16),
+              buildTextField('Working Days', workingDaysController),
+              SizedBox(height: 16),
+              buildTextField('Phone Number', phoneNumberController),
+              SizedBox(height: 16),
+              buildTextField('No Of Workers', noOfWorkersController),
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(10),
-        color: Color.fromARGB(255, 200, 162, 146),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechDutyPage()),
-                );
-              },
-              child: buildBottomIcon(Icons.build, 'Duty'),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechAccountPage()),
-                );
-              },
-              child: buildBottomIcon(Icons.account_circle, 'Accounts'),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechProfilePage()),
-                );
-              },
-              child: buildBottomIcon(Icons.person, 'Profile'),
-            ),
-          ],
         ),
       ),
     );
@@ -158,35 +106,39 @@ class _MechProfilePageState extends State<MechProfilePage> {
         ),
         SizedBox(height: 5),
         Container(
-          height: 35,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                blurRadius: 5,
+                offset: Offset(0, 3), // Shadow effect below input box
+              ),
+            ],
+          ),
           child: TextField(
             controller: controller,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              filled: true,
-              fillColor: Colors.grey[300],
+              contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.blue.shade300, width: 1.5),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.blue.shade300, width: 1.5),
+              ),
+              focusedBorder : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: const Color(0xFF4A8BDF), width: 2),
+              ),
+              filled: true,
+              fillColor: Colors.white,
             ),
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14),
             enabled: isEditable,
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildBottomIcon(IconData iconData, String text) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(iconData, size: 24),
-        SizedBox(height: 5),
-        Text(
-          text,
-          style: TextStyle(fontSize: 12),
         ),
       ],
     );

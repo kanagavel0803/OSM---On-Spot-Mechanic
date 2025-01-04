@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'mech_request.dart';
 import 'mech_account.dart';
 import 'mech_profile.dart';
+import 'loginpage.dart'; // Add the import for LoginScreen
+import 'package:firebase_auth/firebase_auth.dart'; // Add the FirebaseAuth import
 
 class MechDutyPage extends StatefulWidget {
   const MechDutyPage({super.key});
@@ -23,8 +25,61 @@ class MechDutyPageState extends State<MechDutyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mech Duty'),
-        backgroundColor: Color(0xFF4A8BDF),
+        title: const Text(
+          'Mech Duty',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color(0xFF4A8BDF),
+        elevation: 0,
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(color: Color(0xFF4A8BDF)),
+              accountName: Text(
+                'Mechanic',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              accountEmail: null,
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person, size: 50, color: Color(0xFF4A8BDF)),
+              ),
+            ),
+            _createDrawerItem(
+              icon: Icons.account_circle,
+              text: 'Accounts',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MechAccountPage()),
+              ),
+            ),
+            _createDrawerItem(
+              icon: Icons.person,
+              text: 'Profile',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MechProfilePage()),
+              ),
+            ),
+            _createDrawerItem(
+              icon: Icons.help,
+              text: 'Help',
+              onTap: () {},
+            ),
+            _createDrawerItem(
+              icon: Icons.logout,
+              text: 'Logout',
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: [
@@ -39,15 +94,27 @@ class MechDutyPageState extends State<MechDutyPage> {
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
               decoration: BoxDecoration(
-                color: Color(0xFF4A8BDF),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ],
               ),
               child: ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4A8BDF),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -55,55 +122,28 @@ class MechDutyPageState extends State<MechDutyPage> {
                     MaterialPageRoute(builder: (context) => MechRequestPage()),
                   );
                 },
-                icon: Icon(Icons.arrow_forward),
-                label: Text('View Request'),
+                icon: Icon(Icons.arrow_forward_ios),
+                label: Text('View Requests'),
               ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(10),
-        color: Color(0xFF4A8BDF),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            buildBottomIcon(Icons.build, 'Duty', Colors.white),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechAccountPage()),
-                );
-              },
-              child: buildBottomIcon(Icons.account_circle, 'Accounts', Colors.white),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechProfilePage()),
-                );
-              },
-              child: buildBottomIcon(Icons.person, 'Profile', Colors.white),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  Widget buildBottomIcon(IconData iconData, String text, Color color) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(iconData, size: 24, color: color),
-        SizedBox(height: 5),
-        Text(
-          text,
-          style: TextStyle(fontSize: 12, color: color),
-        ),
-      ],
+  Widget _createDrawerItem({
+    required IconData icon,
+    required String text,
+    required GestureTapCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Color(0xFF4A8BDF)),
+      title: Text(
+        text,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      ),
+      onTap: onTap,
     );
   }
 }

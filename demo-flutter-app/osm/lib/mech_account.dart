@@ -1,184 +1,173 @@
 import 'package:flutter/material.dart';
-import 'mech_duty.dart';
-import 'mech_profile.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: MechAccountPage(),
+    debugShowCheckedModeBanner: false,
+  ));
+}
 
 class MechAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // Changed to white for consistency
       appBar: AppBar(
-        title: Text('Mech Accounts'),
-        backgroundColor: Color.fromARGB(255, 31, 157, 161),
+        title: Text('Mech Accounts', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color(0xFF4A8BDF),
+        elevation: 0,
       ),
-      body: Container(
-        color: Color.fromARGB(255, 31, 157, 161),
-        padding: EdgeInsets.all(10),
+      body: Padding(
+        padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.all(10),
-              color: Color.fromARGB(255, 200, 162, 146),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'TODAY, 08 MARCH',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '₹ 2,044',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '4 SERVICES COMPLETED',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildArrowIcon(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.all(10),
-              color: Color.fromARGB(255, 200, 162, 146),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  buildButtonRow(Icons.attach_money, 'Bank Transfer', context, '/bankTransfer'),
-                  SizedBox(height: 5),
-                  buildButtonRow(Icons.history, 'Earning History', context, '/earningHistory'),
-                  SizedBox(height: 5),
-                  buildButtonRow(Icons.local_offer, 'Incentives', context, '/incentives'),
-                  SizedBox(height: 5),
-                  buildButtonRow(Icons.star, 'Check Ratings', context, '/checkRatings'),
-                  SizedBox(height: 5),
-                  buildButtonRow(Icons.group, 'Refer & Earn', context, '/referAndEarn'),
-                ],
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(10),
-        color: Color.fromARGB(255, 200, 162, 146),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechDutyPage()),
-                );
-              },
-              child: buildBottomIcon(Icons.build, 'Duty'),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechAccountPage()),
-                );
-              },
-              child: buildBottomIcon(Icons.account_circle, 'Accounts'),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MechProfilePage()),
-                );
-              },
-              child: buildBottomIcon(Icons.person, 'Profile'),
-            ),
+            buildEarningsCard(),
+            SizedBox(height: 12),
+            buildOptionsCard(context),
           ],
         ),
       ),
     );
   }
 
-  Widget buildArrowIcon() {
-    return Icon(Icons.arrow_forward, color: const Color.fromARGB(255, 255, 255, 255), size: 20);
+  Widget buildEarningsCard() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('TODAY, 08 MARCH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black54)),
+          SizedBox(height: 6),
+          Text('₹ 2,044', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.green)),
+          SizedBox(height: 6),
+          Text('4 SERVICES COMPLETED', style: TextStyle(fontSize: 14, color: Colors.black87)),
+        ],
+      ),
+    );
   }
 
-  Widget buildButtonRow(IconData iconData, String text, BuildContext context, String route) {
-    return GestureDetector(
+  Widget buildOptionsCard(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+        ],
+      ),
+      child: Column(
+        children: [
+          buildOptionButton(Icons.account_balance, 'Bank Transfer', context, 'Bank Transfer Details', 
+            'Your balance will be transferred to your linked bank account within 24 hours.'),
+          Divider(color: Colors.grey[300], thickness: 1),
+
+          buildOptionButton(Icons.history, 'Earning History', context, 'Earning History', 
+            'Last Week: ₹10,520\nLast Month: ₹42,000\nTotal Earnings: ₹2,40,000'),
+          Divider(color: Colors.grey[300], thickness: 1),
+
+          buildOptionButton(Icons.card_giftcard, 'Incentives', context, 'Incentives', 
+            'Bonus ₹500 for completing 10 services a day.\nExtra ₹1000 for working on weekends.'),
+          Divider(color: Colors.grey[300], thickness: 1),
+
+          buildOptionButton(Icons.star, 'Check Ratings', context, 'Ratings & Reviews', 
+            'Your Rating: ⭐⭐⭐⭐ (4.5/5)\nCustomer Feedback: "Great service and very professional!"'),
+          Divider(color: Colors.grey[300], thickness: 1),
+
+          buildOptionButton(Icons.group, 'Refer & Earn', context, 'Refer & Earn', 
+            'Invite friends and earn ₹200 for each successful referral.'),
+        ],
+      ),
+    );
+  }
+
+  Widget buildOptionButton(IconData icon, String text, BuildContext context, String title, String details) {
+    return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, route);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => DetailsPage(title: title, details: details, icon: icon),
+        ));
       },
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.grey,
-              width: 1.0,
-            ),
-          ),
-        ),
+      splashColor: Colors.blue.withOpacity(0.2), // Button Click Effect
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
         child: Row(
           children: [
-            Icon(iconData),
-            SizedBox(width: 10),
+            Container(
+              padding: EdgeInsets.all(10 ),
+              decoration: BoxDecoration(
+                color: const Color(0xFF4A8BDF).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: const Color(0xFF4A8BDF), size: 28),
+            ),
+            SizedBox(width: 14),
             Expanded(
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black87),
               ),
             ),
-            IconButton(
-              icon: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-                size: 20.0,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, route);
-              },
-              color: Colors.black12,
-              padding: EdgeInsets.zero,
-              constraints: BoxConstraints(),
-            ),
+            Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 18),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget buildBottomIcon(IconData iconData, String text) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(iconData, size: 24),
-        SizedBox(height: 5),
-        Text(
-          text,
-          style: TextStyle(fontSize: 12),
+class DetailsPage extends StatelessWidget {
+  final String title;
+  final String details;
+  final IconData icon;
+
+  DetailsPage({required this.title, required this.details, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color(0xFF4A8BDF),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4A8BDF).withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, size: 48, color: const Color(0xFF4A8BDF)),
+                ),
+              ),
+              SizedBox(height: 14),
+              Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87)),
+              SizedBox(height: 8),
+              Text(details, style: TextStyle(fontSize: 16, color: Colors.black54)),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }
