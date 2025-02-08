@@ -5,7 +5,7 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 
 
 # Customer Features 👤
-✔️ Easy Registration 
+✔️ Easy Registration  <br>
 ✔️ Report Vehicle Issues – Specify location, describe the problem, and add vehicle details. <br>
 ✔️ Live Location Tracking – GPS-based tracking for accurate service requests. <br>
 ✔️ Quick Mechanic Allocation – Requests are broadcasted to nearby available mechanics. <br>
