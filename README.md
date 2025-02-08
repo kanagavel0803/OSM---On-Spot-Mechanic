@@ -16,6 +16,9 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 ✔️ Notification System – Nearby garages are informed when an order is taken. <br>
 
 # Screenshots  📸 
+<details><
+ <summary>📸 Click to view App Overview</summary> 
+
 # App logo
 ![App icon](https://github.com/user-attachments/assets/4578c606-ca41-4daa-84b0-44b6f63e50f2)
 
@@ -24,6 +27,8 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 
 # SignIn Page
 ![SignIn](https://github.com/user-attachments/assets/c7e15b97-0d6d-486c-b876-2699957711fe)
+
+</details>
 
 <details>
    <summary>📸 Click to view User Screenshots</summary> 
