@@ -74,7 +74,7 @@ class _MechRequestPageState extends State<MechRequestPage> {
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Kanagavel',
+                      'Kani',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class _MechRequestPageState extends State<MechRequestPage> {
                           ),
                           SizedBox(width: 8),
                           Text(
-                            'Dharmapuri',
+                            'R.M.K Engineering college ',
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ],

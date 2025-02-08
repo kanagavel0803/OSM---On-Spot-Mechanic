@@ -14,12 +14,12 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
     mapController = controller;
   }
 
-  @override  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF4A8BDF),
-        title: Text('Order Taken', style: TextStyle(color: Colors.white)),
+        title: const Text('Order Taken', style: TextStyle(color: Colors.white)),
       ),
       body: Column(
         children: [
@@ -28,12 +28,12 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
-              target: _center,
+                target: _center,
                 zoom: 14.0,
               ),
               markers: {
                 Marker(
-                  markerId: MarkerId('location1'),
+                  markerId: const MarkerId('location1'),
                   position: _center,
                 ),
               },
@@ -48,16 +48,16 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage('assets/profile.jpg'), // Example image, replace with network image if needed
+                        backgroundImage: AssetImage('assets/profile.jpg'), 
                       ),
-                      SizedBox(width: 26),
+                      const SizedBox(width: 26),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'SAM CUF',
+                          const Text(
+                            'Srinivasan',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -65,7 +65,7 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                             ),
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Icon(Icons.star, color: Colors.yellow, size: 16),
                               SizedBox(width: 4),
                               Text(
@@ -79,10 +79,10 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
+                        children: const [
                           Text(
                             'ARRIVE IN',
                             style: TextStyle(
@@ -102,13 +102,13 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 36),
+                  const SizedBox(height: 36),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.location_pin, color: Colors.white),
                       SizedBox(width: 8),
                       Text(
-                        'Main road',
+                        'Puduvayol',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       Spacer(),
@@ -118,13 +118,13 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.location_pin, color: Colors.white),
                       SizedBox(width: 8),
                       Text(
-                        'Dharmapuri',
+                        'R.M.K',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       Spacer(),
@@ -134,6 +134,57 @@ class _UserAcceptPageState extends State<UserAcceptPage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 16),
+Card(
+  color: Colors.grey[300],  // Light gray color for the card
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),  // Rounded corners
+  ),
+  elevation: 2,  // Slight shadow for depth
+  child: Padding(
+    padding: const EdgeInsets.all(12.0),  // Add some padding inside the card
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'Problem:',
+          style: TextStyle(
+            color: Colors.black87,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          'Puncture',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 16,
+          ),
+        ),
+        Divider(color: Colors.black26),  // A thin line to separate
+        SizedBox(height: 4),
+        Text(
+          'Estimated Amount:',
+          style: TextStyle(
+            color: Colors.black87,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          '₹300',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 16,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
                 ],
               ),
             ),
