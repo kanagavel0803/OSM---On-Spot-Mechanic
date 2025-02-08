@@ -25,6 +25,9 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 # SignIn Page
 ![SignIn](https://github.com/user-attachments/assets/c7e15b97-0d6d-486c-b876-2699957711fe)
 
+<details>
+   <summary>📸 Click to view User Screenshots</summary> 
+
 # User Side Pages  
 | Page | Screenshot |
 |------|-----------|
@@ -34,6 +37,10 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 | User Location | ![User location](https://github.com/user-attachments/assets/c28c061e-a59a-45ba-8fc6-5905a3c3f90c) |
 | Choose Problem | ![User Choose prblm](https://github.com/user-attachments/assets/d857f21a-d269-4093-ba09-6b2b9fe41c57) |
 | Specific Detail | ![User Specific detail](https://github.com/user-attachments/assets/42aef13b-163c-479d-a4f9-0ad80d73b034) |
+</details>
+
+<details>
+  <summary>🛠️ Click to view Mechanic Screenshots</summary>
 
 # Mechanic Side Pages  
 | Page | Screenshot |
@@ -44,7 +51,7 @@ It integrates **Google Map API, Firebase authentication, location tracking, and 
 | Profile | ![Mech Profile](https://github.com/user-attachments/assets/c8669136-218d-4ff2-a971-c86becc38bd9) |
 | Accept/Reject Request | ![Mech accpet-reject request](https://github.com/user-attachments/assets/eb4d58dc-8818-413a-aafd-d42669274832) |
 | Accepts Request | ![Mech accepts req](https://github.com/user-attachments/assets/a817f686-32a7-49d2-9edb-4b6c7a8c1d0c) |
-
+</details>
 
 # Future Enhancements 🚀
 ✔️ Remote Consultation Service – Customers can get online consultation when no mechanic is nearby. <br>
